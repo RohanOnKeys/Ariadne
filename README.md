@@ -6,164 +6,414 @@
 <img src="assets/orbit_hero.jpg" width="900"/>
 </p>
 
-Ariadne is a research focused astrodynamics framework for orbital propagation, reference frame transformations, uncertainty aware state estimation and conjunction assessment.
+Ariadne is a research focused astrodynamics framework for orbital propagation, orbit estimation and conjunction assessment.
 
-The project combines orbital mechanics, numerical computation and statistical estimation methods to analyse spacecraft trajectories, estimate orbital states and evaluate potential close approaches between space objects.
+The project combines orbital mechanics, numerical computation and statistical estimation into a unified command line tool capable of working with both local satellite data and live orbital catalogs.
+
+Every workflow follows the same philosophy. Data is ingested, normalized into a common satellite state model, analysed, and exported into scientific or visualization friendly formats.
+
+---
 
 ## Features
+
+### Data Ingestion
+
+Ariadne accepts multiple satellite data formats through a single interface.
+
+Supported inputs include
+
+• TLE catalogs
+
+• CSV state vectors
+
+• Plain text state files
+
+• Automatic format detection
+
+• Unified satellite state representation
+
+---
+
+### Live Catalog Fetching
+
+Satellite catalogs can be retrieved directly from public providers.
+
+Supported sources include
+
+• CelesTrak
+
+• Space Track
+
+Features include
+
+• NORAD lookup
+
+• Catalog downloads
+
+• Local caching
+
+• Live propagation workflows
+
+---
+
+## Command Line Interface
+
+Everything is available through a single executable.
+
+```bash
+ariadne fetch
+ariadne validate
+ariadne propagate
+ariadne od
+ariadne conjunct
+ariadne screen
+```
+
+Example commands
+
+```bash
+ariadne fetch --source celestrak --group active
+
+ariadne validate --input iss.tle
+
+ariadne propagate --input iss.tle --hours 24 --step 30
+
+ariadne od --input observations.csv --method ukf
+
+ariadne conjunct --primary sat_a.tle --secondary sat_b.tle
+
+ariadne screen --catalog active.tle --primary iss.tle --threshold-km 5
+```
+
+---
 
 ## Orbital Propagation
 
 Ariadne provides tools for modelling and predicting spacecraft trajectories using orbital state information.
 
-Capabilities include:
+Capabilities include
 
-• TLE parsing and orbital element extraction  
-• Satellite orbit propagation  
-• Future state prediction  
-• Orbital trajectory analysis  
-• Propagation validation against standard reference data  
+• TLE parsing
+
+• Satellite orbit propagation
+
+• Numerical propagation
+
+• Future state prediction
+
+• Orbital trajectory analysis
+
+• Propagation validation
 
 <p align="center">
 <img src="assets/orbit_propagation.jpg" width="800"/>
 </p>
 
+---
+
 ## Reference Frame Transformations
 
 Accurate coordinate transformations are essential for spacecraft tracking and observation modelling.
 
-Supported transformations include:
+Supported transformations include
 
-• Earth Centered Inertial coordinates  
-• Earth Centered Earth Fixed coordinates  
-• Topocentric observation frames  
-• Azimuth, elevation and range calculations  
-• Orbital observation geometry  
+• Earth Centered Inertial
+
+• Earth Centered Earth Fixed
+
+• Topocentric frames
+
+• Azimuth elevation and range
+
+• Observation geometry
 
 <p align="center">
 <img src="assets/frame_transform.jpg" width="800"/>
 </p>
 
+---
+
 ## Measurement Simulation
 
-Ariadne provides configurable observation simulation for developing and testing orbital estimation systems.
+Ariadne provides configurable observation simulation for developing and testing estimation systems.
 
-Features include:
+Features include
 
-• Synthetic tracking observations  
-• Range measurements  
-• Angular measurements  
-• Sensor noise modelling  
-• Ground truth trajectory generation  
+• Synthetic observations
+
+• Range measurements
+
+• Angular measurements
+
+• Sensor noise models
+
+• Ground truth generation
+
+---
 
 ## Orbit Determination
 
-Ariadne estimates spacecraft states from imperfect tracking observations using nonlinear estimation methods.
+Ariadne estimates spacecraft states from imperfect observations using nonlinear estimation techniques.
 
-Supported methods:
+Supported methods
 
-• Batch least squares estimation  
-• Extended Kalman Filter  
-• Unscented Kalman Filter  
+• Batch Least Squares
 
-Capabilities include:
+• Extended Kalman Filter
 
-• State prediction  
-• Measurement updates  
-• Covariance propagation  
-• Uncertainty estimation  
+• Unscented Kalman Filter
+
+Capabilities include
+
+• State prediction
+
+• Measurement updates
+
+• Covariance propagation
+
+• Uncertainty estimation
+
+---
 
 ## Statistical Validation
 
-Ariadne validates estimation performance through statistical consistency analysis.
+Filter performance is evaluated through statistical consistency testing.
 
-Validation methods include:
+Methods include
 
 ### NEES
 
 Normalized Estimation Error Squared
 
-Evaluates whether predicted uncertainty matches actual estimation error.
-
 ### NIS
 
 Normalized Innovation Squared
 
-Evaluates whether measurement residuals are consistent with the assumed observation model.
+These metrics verify that predicted uncertainty remains consistent with observed estimation performance.
+
+---
 
 ## Conjunction Assessment
 
-Ariadne provides space object encounter analysis for evaluating orbital close approaches.
+Ariadne evaluates close approaches between resident space objects.
 
-Capabilities include:
+Capabilities include
 
-• Relative state computation  
-• Closest approach determination  
-• Encounter geometry analysis  
-• RIC frame analysis  
-• Covariance combination  
-• Probability of collision estimation  
-• Hard body radius modelling  
+• Relative state computation
+
+• Time of closest approach
+
+• RIC frame analysis
+
+• Covariance combination
+
+• Collision probability estimation
+
+• Hard body radius modelling
+
+---
 
 ## Space Object Screening
 
-Ariadne supports orbital catalog analysis for identifying potential conjunction events.
+Entire satellite catalogs can be screened for potential conjunction events.
 
-Features include:
+Features include
 
-• Satellite catalog processing  
-• Candidate filtering  
-• Orbital screening  
-• Encounter risk identification  
+• Catalog processing
+
+• Candidate filtering
+
+• Encounter screening
+
+• Risk identification
 
 <p align="center">
 <img src="assets/catalog_screening.jpg" width="800"/>
 </p>
 
-## Real World Validation
+---
+
+## Export
+
+Analysis results can be exported into multiple formats.
+
+Supported outputs
+
+• JSON
+
+• CSV
+
+• CZML
+
+• Ground track plots
+
+• RIC plots
+
+These outputs integrate with scientific workflows and Cesium based visualization.
+
+---
+
+## Validation
 
 Ariadne is evaluated against publicly available orbital data and historical conjunction scenarios.
 
-Validation includes:
+Validation includes
 
-• Standard propagation verification cases  
-• Real satellite tracking scenarios  
-• Historical conjunction analysis  
-• Predicted versus reported encounter comparison  
+• Standard propagation benchmarks
+
+• Real satellite tracking
+
+• Historical conjunction cases
+
+• Predicted versus reported encounters
 
 <p align="center">
 <img src="assets/historical_validation.jpg" width="800"/>
 </p>
 
+---
+
+## Project Structure
+
+```text
+Ariadne/
+│
+├── ariadne/
+│   ├── cli/
+│   ├── ingest/
+│   ├── fetch/
+│   ├── propagate/
+│   ├── estimate/
+│   ├── conjunction/
+│   ├── export/
+│   ├── viewer/
+│   ├── models/
+│   ├── utils/
+│   └── config/
+│
+├── data/
+├── docs/
+├── tests/
+├── examples/
+├── assets/
+└── pyproject.toml
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/yourusername/Ariadne.git
+
+cd Ariadne
+
+python -m venv .venv
+
+source .venv/bin/activate
+
+pip install -e .
+```
+
+---
+
+## Design
+
+Ariadne follows a layered architecture.
+
+```
+Input
+
+↓
+
+Satellite State
+
+↓
+
+Propagation
+
+↓
+
+Estimation
+
+↓
+
+Conjunction
+
+↓
+
+Export
+```
+
+Every module remains independent while sharing the same normalized satellite state representation.
+
+---
+
 ## Documentation
 
-The documentation provides:
+Documentation includes
 
-• API references  
-• Mathematical explanations  
-• Usage examples  
-• Validation experiments  
-• Scientific references  
+• API reference
 
-## Testing and Quality
+• Mathematical background
 
-Ariadne includes automated validation through:
+• Command reference
 
-• Unit testing  
-• Numerical regression testing  
-• Property based testing  
-• Statistical consistency testing  
-• Continuous integration checks  
+• Usage examples
+
+• Validation studies
+
+---
+
+## Testing
+
+Quality assurance includes
+
+• Unit testing
+
+• Numerical regression
+
+• Property based testing
+
+• Statistical validation
+
+• Continuous integration
+
+---
 
 ## Scientific Foundations
 
-Ariadne is built on concepts from:
+Ariadne is built upon
 
-• Orbital mechanics  
-• Numerical methods  
-• Probability theory  
-• Bayesian estimation  
-• Space situational awareness  
+• Orbital mechanics
+
+• Numerical methods
+
+• Probability theory
+
+• Bayesian estimation
+
+• Space Situational Awareness
+
+---
+
+## Roadmap
+
+Current development focuses on
+
+• Robust data ingestion
+
+• Live catalog integration
+
+• Orbit propagation
+
+• Orbit determination
+
+• Conjunction assessment
+
+• Scientific visualization
+
+---
 
 ## License
 
