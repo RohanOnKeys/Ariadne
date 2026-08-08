@@ -10,7 +10,7 @@ For *what gets built when*, see [`roadmap.md`](roadmap.md).
 Status markers used throughout:
 
 | Marker | Meaning |
-|---|---|
+| --- | --- |
 | **[built]** | Implemented and in the tree today |
 | **[stub]** | File exists, 0 lines, contract defined here, not yet written |
 | **[planned]** | Not in the repo yet at all |
@@ -95,7 +95,7 @@ flowchart TD
 **Import rule, enforced by review:** a module may import from its own layer and
 any layer above it in this list, never below.
 
-```
+```text
 constants, exceptions, utils   ← leaf, imported by everyone
 models                         ← may import leaf
 ingest, fetch, propagate       ← may import models + leaf
@@ -119,7 +119,7 @@ duplication in the tree.
 ### Units
 
 | Quantity | Unit | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Distance | km | Never metres. `R_EARTH = 6378.137` |
 | Velocity | km/s | |
 | Acceleration | km/s² | |
@@ -215,7 +215,7 @@ An observation for the OD pipeline: `epoch`, `values` (n-vector), `kind`
 ### 5.1 `ingest/` **[stub]**, files in, states out
 
 | Module | Responsibility |
-|---|---|
+| --- | --- |
 | `sniff.py` | Detect format from content, not extension. Returns an enum; dispatches to the right parser. |
 | `tle.py` | 2-line and 3-line (with name) TLE files → `list[TLE]` |
 | `csv.py` | Header-driven state vector CSV → `list[SatelliteState]` |
@@ -412,7 +412,7 @@ Additive, a new top-level package that imports `ariadne` and adds no logic of
 its own.
 
 | Endpoint | Returns |
-|---|---|
+| --- | --- |
 | `GET /catalog` | Object list from `fetch/` (cache-backed) |
 | `GET /objects/{id}/state` | Current `SatelliteState` as JSON |
 | `GET /objects/{id}/orbit.czml` | CZML from `export/czml.py` |
@@ -463,7 +463,7 @@ var.
 ## 10. Testing strategy
 
 | Layer | Approach |
-|---|---|
+| --- | --- |
 | `propagate` | Regression against published SGP4 test vectors; round-trip identity for every frame transform; energy/angular-momentum conservation for the integrator over long arcs |
 | `estimate` | Simulate truth → add known noise → check the filter converges; NEES/NIS must sit inside the chi-square bound (self-validating by construction) |
 | `conjunction` | Analytic geometries with a known closest approach; Pc against published worked examples |
@@ -481,7 +481,7 @@ module each covers, not afterwards.
 ## 11. Current state
 
 | Package | Status | Lines |
-|---|---|---|
+| --- | --- | --- |
 | `estimate/ukf.py` | **[built]** | 197 |
 | `estimate/diagnostics.py` | **[built]** | 139 |
 | `estimate/dynamics.py` | **[built]** | 93 |
@@ -491,7 +491,7 @@ module each covers, not afterwards.
 | `estimate/batch_ls.py` | **[stub]** | 0 |
 | `models/`, `propagate/`, `ingest/`, `fetch/`, `conjunction/`, `export/`, `cli/`, `utils/`, `config/`, `viewer/` | **[stub]** | 0 |
 | `pyproject.toml` | **[stub]** | 0 |
-| `api/`, `web/` | **[planned]** |, |
+| `api/`, `web/` | **[planned]** | — |
 
 The estimation layer is complete but currently unreachable: nothing can produce
 a `SatelliteState` to feed it. `models/` + `propagate/` is the critical path,

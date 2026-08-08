@@ -3,7 +3,7 @@
 ## Astrodynamics, Orbit Estimation and Conjunction Assessment Framework
 
 <p align="center">
-<img src="assets/orbit_hero.jpg" width="900"/>
+<img src="assets/orbit_hero.jpg" width="900" alt="Ariadne orbit visualization hero image"/>
 </p>
 
 Ariadne is a research focused astrodynamics framework for orbital propagation, orbit estimation and conjunction assessment.
@@ -106,7 +106,7 @@ Capabilities include
 • Propagation validation
 
 <p align="center">
-<img src="assets/orbit_propagation.jpg" width="800"/>
+<img src="assets/orbit_propagation.jpg" width="800" alt="Orbital trajectory analysis and propagation validation plot"/>
 </p>
 
 ---
@@ -128,7 +128,7 @@ Supported transformations include
 • Observation geometry
 
 <p align="center">
-<img src="assets/frame_transform.jpg" width="800"/>
+<img src="assets/frame_transform.jpg" width="800" alt="Azimuth, elevation, and range observation geometry diagram"/>
 </p>
 
 ---
@@ -228,7 +228,7 @@ Features include
 • Risk identification
 
 <p align="center">
-<img src="assets/catalog_screening.jpg" width="800"/>
+<img src="assets/catalog_screening.jpg" width="800" alt="Catalog conjunction screening and risk identification plot"/>
 </p>
 
 ---
@@ -268,7 +268,7 @@ Validation includes
 • Predicted versus reported encounters
 
 <p align="center">
-<img src="assets/historical_validation.jpg" width="800"/>
+<img src="assets/historical_validation.jpg" width="800" alt="Historical conjunction cases: predicted versus reported encounters"/>
 </p>
 
 ---
@@ -321,7 +321,7 @@ pip install -e .
 
 Ariadne follows a layered architecture.
 
-```
+```text
 Input
 
 ↓

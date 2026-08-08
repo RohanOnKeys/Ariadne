@@ -74,6 +74,7 @@ previous one.
 7. **`models/measurement.py`**, observation container with noise covariance.
 
 **Done when:**
+
 - SGP4 output matches the published Vallado test vectors to documented tolerance.
 - Every frame transform round-trips to within numerical noise.
 - The numerical propagator conserves energy and angular momentum over a
@@ -212,9 +213,13 @@ parallel by a separate session once M7's shapes are fixed.
 
 ## Cross-cutting, ongoing
 
-- **Tests land with their module, ** not in a later cleanup pass. The empty
+- **Tests land with their module**, not in a later cleanup pass. The empty
   `tests/test_propagate.py`, `test_ingest.py`, `test_fetch.py`,
-  `test_conjunction.py`, `test_estimate.py` fill in during M1–M4.
+  `test_conjunction.py` fill in during M1–M4. Follow the `tests/test_estimate/`
+  precedent: once a module needs more than one test file, convert its flat
+  placeholder into a `tests/test_<module>/` package (one file per submodule)
+  in the same change, don't leave both the flat file and the package
+  around, `pytest` can't collect a module and a same-named package together.
 - **Validation studies**, the README promises benchmarks against real tracking
   data and historical conjunction cases. These belong in `docs/` as they're
   produced, with the numbers reproducible from `examples/`.

@@ -49,3 +49,6 @@ data/catalogs/*
 data/ephemeris/*
 !data/catalogs/.gitkeep
 !data/ephemeris/.gitkeep
+
+# Local assistant context, not for the shared repo
+CLAUDE.md

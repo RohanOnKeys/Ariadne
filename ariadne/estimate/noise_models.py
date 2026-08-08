@@ -36,7 +36,7 @@ def build_measurement_noise(pos_sigma: float, vel_sigma: float) -> np.ndarray:
 
 
 def build_process_noise_discrete_white_noise(dt: float, sigma_accel: float,
-                                              dim: int = 6) -> np.ndarray:
+                                             dim: int = 6) -> np.ndarray:
     """
     Build a discrete white-noise-acceleration process noise matrix Q.
 
@@ -64,7 +64,7 @@ def build_process_noise_discrete_white_noise(dt: float, sigma_accel: float,
     """
     if dim != 6:
         raise ValueError("build_process_noise_discrete_white_noise only "
-                          "supports the 6-state [pos, vel] case.")
+                         "supports the 6-state [pos, vel] case.")
 
     block = np.array([
         [dt**4 / 4, dt**3 / 2],
