@@ -91,7 +91,7 @@ def chi_square_bounds(dof: int, confidence: float = 0.95) -> tuple:
 
 
 def run_nis_consistency_check(nis_sequence: list, dof: int,
-                               confidence: float = 0.95) -> dict:
+                              confidence: float = 0.95) -> dict:
     """
     Evaluate a full sequence of NIS values against the chi-square
     consistency bound and report whether the filter is over- or

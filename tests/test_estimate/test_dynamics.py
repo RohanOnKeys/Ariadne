@@ -67,7 +67,7 @@ def test_propagate_rk4_matches_scipy_reference():
 
     # Reference: adaptive-step scipy integrator.
     ref = solve_ivp(state_derivative, [0, dt_total], state,
-                     rtol=1e-10, atol=1e-12)
+                    rtol=1e-10, atol=1e-12)
     ref_final = ref.y[:, -1]
 
     # Fixed-step RK4, small steps for accuracy.
