@@ -1,2 +1,2 @@
-"""Orbit state estimation package: UKF core, dynamics model, noise
-models, and consistency diagnostics."""
+"""Ariadne: TLE/catalog ingestion, orbit propagation, nonlinear orbit
+determination, conjunction assessment, and export to JSON/CSV/CZML."""
