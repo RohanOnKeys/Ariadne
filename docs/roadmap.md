@@ -74,6 +74,7 @@ previous one.
 7. **`models/measurement.py`**, observation container with noise covariance.
 
 **Done when:**
+
 - SGP4 output matches the published Vallado test vectors to documented tolerance.
 - Every frame transform round-trips to within numerical noise.
 - The numerical propagator conserves energy and angular momentum over a
