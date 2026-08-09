@@ -104,9 +104,9 @@ A TLE (Two-Line Element set) is how NORAD publishes an orbit as compact plain te
 in the standard format (illustrative, TLEs are re-issued daily, so treat the numbers as a
 snapshot for teaching, not live data):
 
-```
-1 25544U 98067A   24045.51782528  .00016717  00000-0  10270-3 0  9994
-2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.49560684436463
+```text
+1 25544U 98067A   24045.51782528  .00016717  00000-0  10270-3 0  9998
+2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.49560684436460
 ```
 
 **Line 1** decodes as:
