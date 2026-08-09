@@ -52,3 +52,4 @@ data/ephemeris/*
 
 # Local assistant context, not for the shared repo
 CLAUDE.md
+checkpoint.md
