@@ -11,3 +11,9 @@ def test_parses_bare_2line_record():
     assert len(tles) == 1
     assert tles[0].norad_id == 25544
     assert tles[0].name is None
+
+
+def test_parses_named_3line_record():
+    tles = parse_tle_text(f"ISS (ZARYA)\n{_LINE1}\n{_LINE2}\n")
+    assert len(tles) == 1
+    assert tles[0].name == "ISS (ZARYA)"
