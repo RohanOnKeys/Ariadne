@@ -1,9 +1,10 @@
 """
 tle.py
 
-Ingest a TLE file (2-line format, one or many satellites) into a
-list of parsed `TLE` objects. Splitting/format detection lives here;
-the actual field parsing is `models/tle.py:TLE.from_lines`.
+Ingest a TLE file (2-line or 3-line/named format, one or many
+satellites) into a list of parsed `TLE` objects. Splitting/format
+detection lives here; the actual field parsing is
+`models/tle.py:TLE.from_lines`.
 """
 
 from typing import List
@@ -14,8 +15,8 @@ from ariadne.models.tle import TLE
 
 def parse_tle_text(text: str) -> List[TLE]:
     """
-    Parse bare 2-line TLE records out of raw text, one or many
-    satellites, no name line.
+    Parse TLE records out of raw text, one or many satellites, with or
+    without a name line before each 2-line element set.
 
     Raises:
         IngestError: a record doesn't resolve to a valid 2-line pair.
@@ -29,6 +30,9 @@ def parse_tle_text(text: str) -> List[TLE]:
         if line.startswith("1 ") and i + 1 < len(lines) and lines[i + 1].startswith("2 "):
             tles.append(TLE.from_lines(line, lines[i + 1]))
             i += 2
+        elif i + 2 < len(lines) and lines[i + 1].startswith("1 ") and lines[i + 2].startswith("2 "):
+            tles.append(TLE.from_lines(lines[i + 1], lines[i + 2], name=line))
+            i += 3
         else:
             raise IngestError(f"line {i + 1}: expected a TLE line 1/2 pair, got {line!r}.")
 
