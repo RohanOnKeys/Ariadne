@@ -41,5 +41,10 @@ def parse_tle_text(text: str) -> List[TLE]:
 
 
 def load_tle_file(path: Union[str, Path]) -> List[TLE]:
-    """Read and parse a TLE file from disk."""
+    """
+    Read and parse a TLE file from disk.
+
+    Raises:
+        IngestError: same conditions as `parse_tle_text`.
+    """
     return parse_tle_text(Path(path).read_text())
