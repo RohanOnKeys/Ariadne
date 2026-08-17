@@ -1,5 +1,8 @@
 """Tests for ariadne.ingest.tle."""
 
+import pytest
+
+from ariadne.exceptions import IngestError
 from ariadne.ingest.tle import parse_tle_text
 
 _LINE1 = "1 25544U 98067A   24045.51782528  .00016717  00000-0  10270-3 0  9998"
@@ -25,3 +28,8 @@ def test_parses_multiple_records_back_to_back():
     assert len(tles) == 2
     assert tles[0].name == "ISS (ZARYA)"
     assert tles[1].name is None
+
+
+def test_raises_ingest_error_on_malformed_record():
+    with pytest.raises(IngestError):
+        parse_tle_text("just a name\nnot a tle line\n")
