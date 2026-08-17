@@ -7,7 +7,8 @@ detection lives here; the actual field parsing is
 `models/tle.py:TLE.from_lines`.
 """
 
-from typing import List
+from pathlib import Path
+from typing import List, Union
 
 from ariadne.exceptions import IngestError
 from ariadne.models.tle import TLE
@@ -37,3 +38,8 @@ def parse_tle_text(text: str) -> List[TLE]:
             raise IngestError(f"line {i + 1}: expected a TLE line 1/2 pair, got {line!r}.")
 
     return tles
+
+
+def load_tle_file(path: Union[str, Path]) -> List[TLE]:
+    """Read and parse a TLE file from disk."""
+    return parse_tle_text(Path(path).read_text())
