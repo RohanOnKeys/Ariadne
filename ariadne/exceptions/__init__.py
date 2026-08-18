@@ -30,3 +30,7 @@ class IngestError(AriadneError):
 
 class FetchError(AriadneError):
     """A remote catalog provider could not be reached or returned garbage."""
+
+
+class ConjunctionError(AriadneError):
+    """A conjunction geometry or probability computation was given invalid input."""
