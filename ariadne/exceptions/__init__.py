@@ -34,3 +34,7 @@ class FetchError(AriadneError):
 
 class ConjunctionError(AriadneError):
     """A conjunction geometry or probability computation was given invalid input."""
+
+
+class ExportError(AriadneError):
+    """A result could not be serialized to the requested export format."""
