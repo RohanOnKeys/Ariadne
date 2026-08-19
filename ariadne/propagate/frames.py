@@ -26,6 +26,7 @@ from ariadne.constants import (
     JD_J2000,
     OMEGA_EARTH,
     R_EARTH,
+    R_EARTH_POLAR,
     TWO_PI,
 )
 from ariadne.utils.math import rot2, rot3
@@ -119,6 +120,43 @@ def geodetic_to_ecef(lat: float, lon: float, alt: float) -> np.ndarray:
         (n + alt) * math.cos(lat) * math.sin(lon),
         (n * (1.0 - ECC_EARTH_SQ) + alt) * sin_lat,
     ])
+
+
+def ecef_to_geodetic(r_ecef: np.ndarray) -> tuple:
+    """
+    ECEF position -> geodetic (WGS-84) latitude/longitude/altitude,
+    Bowring's method (closed-form; accurate to sub-millimetre altitude
+    for any terrestrial-range input, no iteration needed). Inverse of
+    `geodetic_to_ecef`.
+
+    Args:
+        r_ecef: position, km, ECEF.
+
+    Returns:
+        (lat, lon, alt): geodetic latitude and longitude, radians;
+        height above the WGS-84 ellipsoid, km.
+    """
+    x, y, z = r_ecef
+    p = math.hypot(x, y)
+    lon = math.atan2(y, x)
+
+    second_ecc_sq = ECC_EARTH_SQ * R_EARTH**2 / R_EARTH_POLAR**2
+    theta = math.atan2(z * R_EARTH, p * R_EARTH_POLAR)
+    lat = math.atan2(
+        z + second_ecc_sq * R_EARTH_POLAR * math.sin(theta) ** 3,
+        p - ECC_EARTH_SQ * R_EARTH * math.cos(theta) ** 3,
+    )
+
+    n = R_EARTH / math.sqrt(1.0 - ECC_EARTH_SQ * math.sin(lat) ** 2)
+    # The p/cos(lat) form of altitude is 0/0 near the poles; z/sin(lat)
+    # is the equivalent well-conditioned form there (and ill-conditioned
+    # near the equator, where p/cos(lat) is used instead).
+    if abs(math.cos(lat)) > 1e-6:
+        alt = p / math.cos(lat) - n
+    else:
+        alt = z / math.sin(lat) - n * (1.0 - ECC_EARTH_SQ)
+
+    return lat, lon, alt
 
 
 def ecef_to_topocentric(

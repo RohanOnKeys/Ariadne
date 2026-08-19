@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 import numpy as np
 
-from ariadne.constants import R_EARTH
+from ariadne.constants import R_EARTH, R_EARTH_POLAR
 from ariadne.propagate import frames
 
 
@@ -84,6 +84,30 @@ def test_geodetic_to_ecef_north_pole():
     assert abs(r[1]) < 1e-6
     assert r[2] < R_EARTH
     assert np.isclose(r[2], 6356.752, atol=0.01)
+
+
+def test_ecef_to_geodetic_round_trip():
+    lat, lon, alt = np.radians(37.5), np.radians(-122.3), 0.4
+    r = frames.geodetic_to_ecef(lat, lon, alt)
+
+    lat_back, lon_back, alt_back = frames.ecef_to_geodetic(r)
+
+    assert np.isclose(lat_back, lat, atol=1e-10)
+    assert np.isclose(lon_back, lon, atol=1e-10)
+    assert np.isclose(alt_back, alt, atol=1e-8)
+
+
+def test_ecef_to_geodetic_equator_prime_meridian():
+    lat, lon, alt = frames.ecef_to_geodetic(np.array([R_EARTH + 500.0, 0.0, 0.0]))
+    assert np.isclose(lat, 0.0, atol=1e-10)
+    assert np.isclose(lon, 0.0, atol=1e-10)
+    assert np.isclose(alt, 500.0, atol=1e-8)
+
+
+def test_ecef_to_geodetic_north_pole():
+    lat, lon, alt = frames.ecef_to_geodetic(np.array([0.0, 0.0, R_EARTH_POLAR + 500.0]))
+    assert np.isclose(lat, np.pi / 2, atol=1e-8)
+    assert np.isclose(alt, 500.0, atol=1e-6)
 
 
 def test_satellite_directly_overhead_gives_90deg_elevation():
