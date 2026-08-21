@@ -15,3 +15,7 @@ LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 
 SPACETRACK_USERNAME = os.environ.get("SPACETRACK_USERNAME") or None
 SPACETRACK_PASSWORD = os.environ.get("SPACETRACK_PASSWORD") or None
+
+CORS_ORIGINS = [
+    origin.strip() for origin in os.environ.get("CORS_ORIGINS", "*").split(",") if origin.strip()
+]
